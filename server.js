@@ -1,6 +1,18 @@
 const inquirer = require("inquirer");
 const mysql = require("mySql");
 
+const db = mysql.createConnection(
+  {
+    host: "localhost",
+    // MySQL username,
+    user: "root",
+    // TODO: Add MySQL password here
+    password: process.env.SQL_PW,
+    database: "tracker_db",
+  },
+  console.log(`Connected to tracker_db`)
+);
+
 const promptQuestions = () => {
   return inquirer
     .prompt([
@@ -49,51 +61,90 @@ const promptQuestions = () => {
 };
 
 const viewDept = () => {
-  console.log("view all departments");
+  //   console.log("view all departments");
+  db.query(`SELECT * FROM department`, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.table(result);
+    }
+  });
 };
 
 const viewRoles = () => {
-  console.log("view all roles");
+  //   console.log("view all roles");
+  db.query(`SELECT * FROM role`, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.table(result);
+    }
+  });
 };
 
 const viewEmployees = () => {
   console.log("view all employees");
+  db.query(`SELECT * FROM employee`, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.table(result);
+    }
+  });
 };
 
+// params = when adding new info
 const addDepartment = () => {
-    console.log("add department");
-    return inquirer.prompt([
-        {
-            type: 'input',
-            name: 'departmentName',
-            message: 'What is the name of the department?',
+  console.log("add department");
+  return inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "departmentName",
+        message: "What is the name of the department?",
+      },
+    ])
+    .then((answers) => {
+      const params = answers.departmentName;
+      db.query(
+        `INSERT INTO department (department_name) VALUES (?)`,
+        [params],
+        (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.table(result);
+          }
         }
-    ]).then((answers) => {
-        console.log(answers);
-        promptQuestions()
-    })
-  };
+      );
+      promptQuestions();
+    });
+};
 
 const addRole = () => {
   console.log("add role");
-  return inquirer.prompt([
+  return inquirer
+    .prompt([
       {
-          type: 'input',
-          name: 'addRoles',
-          message: 'What is the role name?',
-      }, {
-          type: 'input',
-          name: 'salary', 
-          message: 'What is the salary for this role?',
-      }, {
-          type: 'input',
-          name: 'roleDepartment',
-          message: 'What department does this role belong to?',
-      }
-  ]).then((answers) => {
+        type: "input",
+        name: "addRoles",
+        message: "What is the role name?",
+      },
+      {
+        type: "input",
+        name: "salary",
+        message: "What is the salary for this role?",
+      },
+      {
+        type: "input",
+        name: "roleDepartment",
+        message: "What department does this role belong to?",
+      },
+    ])
+    .then((answers) => {
       console.log(answers);
-      promptQuestions()
-  })
+      promptQuestions();
+    });
 };
 
 const addEmployee = () => {
@@ -122,7 +173,7 @@ const addEmployee = () => {
       },
     ])
     .then((answers) => {
-        console.log(answers);
+      console.log(answers);
       promptQuestions();
     });
 };
