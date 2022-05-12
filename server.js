@@ -136,13 +136,22 @@ const addRole = () => {
         message: "What is the salary for this role?",
       },
       {
-        type: "input",
+        type: "list",
         name: "roleDepartment",
         message: "What department does this role belong to?",
+        choices: ''
       },
     ])
     .then((answers) => {
       console.log(answers);
+        const params = [answers.addRoles, answers.salary, answers.roleDepartment];
+        db.query(`INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)` [params], (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.table(result);
+            }
+        })
       promptQuestions();
     });
 };
@@ -185,3 +194,14 @@ const updateEmployee = () => {
 const quit = () => {
   console.log("quit");
 };
+
+
+// TODO: 
+// add .then function for addRole 
+    // i know i have to add a param
+    // i have to add a list in my prompted questions targeting departments 
+
+// add .then function for addEmployee  
+    // need to target the role id & manager id and format as a list item on my prompts 
+
+// add. update employee 
