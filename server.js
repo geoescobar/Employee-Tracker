@@ -1,12 +1,11 @@
 const inquirer = require("inquirer");
-const mysql = require("mySql");
+const mysql = require("mysql2");
 
 const db = mysql.createConnection(
   {
     host: "localhost",
     // MySQL username,
     user: "root",
-    // TODO: Add MySQL password here
     password: process.env.SQL_PW,
     database: "tracker_db",
   },
@@ -171,18 +170,20 @@ const addEmployee = () => {
         message: "What is the employees last name?",
       },
       {
-        type: "input",
+        type: "list",
         name: "role",
         message: "What is the employees role?",
+        choices: ''
       },
       {
-        type: "input",
+        type: "list",
         name: "manager",
         message: "Who is the employees manager?",
+        choices: ''
       },
     ])
     .then((answers) => {
-      console.log(answers);
+    //   console.log(answers);
       promptQuestions();
     });
 };
