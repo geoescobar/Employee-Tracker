@@ -24,11 +24,10 @@ Terminal based application giving access to view and manage departments, roles, 
 
   #### Languages Used
 
-      * node
-
-  - javascript
-    - mySQL
-    - npm
+    * node
+    * javascript
+    * mySQL
+    * npm
 
   #### Why did you build this project?
 
