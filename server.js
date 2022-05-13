@@ -1,17 +1,21 @@
+// dependencies 
+require('dotenv').config();
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
 
+// creating connection to SQL 
 const db = mysql.createConnection(
   {
     host: "localhost",
-    // MySQL username,
     user: "root",
+    //* Replace password with your own as a string */
     password: process.env.SQL_PW,
     database: "tracker_db",
   },
   console.log(`Connected to tracker_db`)
 );
 
+// prompting menu options 
 const promptQuestions = () => {
   return inquirer
     .prompt([
@@ -59,6 +63,7 @@ const promptQuestions = () => {
     });
 };
 
+// viewing departments 
 const viewDept = () => {
   //   console.log("view all departments");
   db.query(`SELECT * FROM department`, (err, result) => {
@@ -70,6 +75,7 @@ const viewDept = () => {
   });
 };
 
+// viewing roles 
 const viewRoles = () => {
   //   console.log("view all roles");
   db.query(`SELECT * FROM role`, (err, result) => {
@@ -81,6 +87,7 @@ const viewRoles = () => {
   });
 };
 
+// view employees
 const viewEmployees = () => {
   console.log("view all employees");
   db.query(`SELECT * FROM employee`, (err, result) => {
@@ -92,7 +99,7 @@ const viewEmployees = () => {
   });
 };
 
-// params = when adding new info
+// add department 
 const addDepartment = () => {
   console.log("add department");
   return inquirer
@@ -120,6 +127,7 @@ const addDepartment = () => {
     });
 };
 
+// add role 
 const addRole = () => {
   console.log("add role");
   return inquirer
@@ -138,6 +146,8 @@ const addRole = () => {
         type: "list",
         name: "roleDepartment",
         message: "What department does this role belong to?",
+        // todo 
+        // add list of choices 
         choices: ''
       },
     ])
@@ -155,6 +165,7 @@ const addRole = () => {
     });
 };
 
+// add employee
 const addEmployee = () => {
   console.log("add employee");
   return inquirer
@@ -188,10 +199,12 @@ const addEmployee = () => {
     });
 };
 
+// update employee
 const updateEmployee = () => {
   console.log("update employees");
 };
 
+// quit application 
 const quit = () => {
   console.log("quit");
 };
