@@ -80,7 +80,7 @@ const viewDept = () => {
       console.table(result);
     }
   });
-      promptQuestions();
+  promptQuestions();
 };
 
 // viewing roles
@@ -93,8 +93,7 @@ const viewRoles = () => {
       console.table(result);
     }
   });
-      promptQuestions();
-
+  promptQuestions();
 };
 
 // view employees
@@ -107,7 +106,7 @@ const viewEmployees = () => {
       console.table(result);
     }
   });
-      promptQuestions();
+  promptQuestions();
 };
 
 // add department
@@ -130,7 +129,7 @@ const addDepartment = () => {
           if (err) {
             console.log(err);
           } else {
-            console.table(result);
+            viewDept();
           }
         }
       );
@@ -169,7 +168,7 @@ const addRole = () => {
           if (err) {
             console.log(err);
           } else {
-            console.table(result);
+            viewRoles();
           }
         }
       );
@@ -179,7 +178,7 @@ const addRole = () => {
 
 // add employee
 const addEmployee = () => {
-  console.log("add employee");
+  console.log("ADD EMPLOYEE");
   return inquirer
     .prompt([
       {
@@ -214,7 +213,7 @@ const addEmployee = () => {
           if (err) {
             console.log(err);
           } else {
-            console.table(result);
+            viewEmployees();
           }
         }
       );
