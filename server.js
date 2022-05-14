@@ -2,6 +2,7 @@
 require("dotenv").config();
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
+const cTable = require("console.table");
 
 // creating connection to SQL
 const db = mysql.createConnection({
@@ -121,7 +122,7 @@ const addDepartment = () => {
       },
     ])
     .then((answers) => {
-      const params = answers.departmentName;
+      const params = [answers.departmentName];
       db.query(
         `INSERT INTO department (department_name) VALUES (?)`,
         [params],
@@ -152,18 +153,12 @@ const addRole = () => {
         name: "salary",
         message: "What is the salary for this role?",
       },
-      // {
-      //   type: "list",
-      //   name: "roleDepartment",
-      //   message: "What department does this role belong to?",
-      //   choices: "",
-      // },
     ])
     .then((answers) => {
       console.log(answers);
-      const params = [answers.addRoles, answers.salary, answers.roleDepartment];
+      const params = [answers.addRoles, answers.salary];
       db.query(
-        `INSERT INTO role (title, salary) VALUES (?, ?)`[params],
+        `INSERT INTO role (title, salary) VALUES (?)`, [params],
         (err, result) => {
           if (err) {
             console.log(err);
@@ -191,24 +186,12 @@ const addEmployee = () => {
         name: "lastName",
         message: "What is the employees last name?",
       },
-      // {
-      //   type: "list",
-      //   name: "role",
-      //   message: "What is the employees role?",
-      //   choices: "",
-      // },
-      // {
-      //   type: "list",
-      //   name: "manager",
-      //   message: "Who is the employees manager?",
-      //   choices: "",
-      // },
     ])
     .then((answers) => {
       //   console.log(answers);
       const params = [answers.firstName, answers.lastName];
       db.query(
-        `INSERT INTO employee (fitst_name, last_name) VALUE (?, ?)`[params],
+        `INSERT INTO employee (first_name, last_name) VALUES (?)`, [params],
         (err, result) => {
           if (err) {
             console.log(err);
