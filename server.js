@@ -1,21 +1,28 @@
-// dependencies 
-require('dotenv').config();
+// dependencies
+require("dotenv").config();
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
 
-// creating connection to SQL 
-const db = mysql.createConnection(
-  {
-    host: "localhost",
-    user: "root",
-    //* Replace password with your own as a string */
-    password: process.env.SQL_PW,
-    database: "tracker_db",
-  },
-  console.log(`Connected to tracker_db`)
-);
+// creating connection to SQL
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  //* Replace password with your own as a string */
+  password: process.env.SQL_PW,
+  database: "tracker_db",
+});
 
-// prompting menu options 
+db.connect(function (err) {
+  if (err) {
+    console.error("error found", err);
+  } else {
+    console.log(`Connected to tracker_db`);
+    // invoking main function
+    promptQuestions();
+  }
+});
+
+// prompting menu options
 const promptQuestions = () => {
   return inquirer
     .prompt([
@@ -63,7 +70,7 @@ const promptQuestions = () => {
     });
 };
 
-// viewing departments 
+// viewing departments
 const viewDept = () => {
   //   console.log("view all departments");
   db.query(`SELECT * FROM department`, (err, result) => {
@@ -73,9 +80,10 @@ const viewDept = () => {
       console.table(result);
     }
   });
+      promptQuestions();
 };
 
-// viewing roles 
+// viewing roles
 const viewRoles = () => {
   //   console.log("view all roles");
   db.query(`SELECT * FROM role`, (err, result) => {
@@ -85,6 +93,8 @@ const viewRoles = () => {
       console.table(result);
     }
   });
+      promptQuestions();
+
 };
 
 // view employees
@@ -97,9 +107,10 @@ const viewEmployees = () => {
       console.table(result);
     }
   });
+      promptQuestions();
 };
 
-// add department 
+// add department
 const addDepartment = () => {
   console.log("add department");
   return inquirer
@@ -127,9 +138,9 @@ const addDepartment = () => {
     });
 };
 
-// add role 
+// add role
 const addRole = () => {
-  console.log("add role");
+  console.log("ADD ROLE");
   return inquirer
     .prompt([
       {
@@ -142,25 +153,26 @@ const addRole = () => {
         name: "salary",
         message: "What is the salary for this role?",
       },
-      {
-        type: "list",
-        name: "roleDepartment",
-        message: "What department does this role belong to?",
-        // todo 
-        // add list of choices 
-        choices: ''
-      },
+      // {
+      //   type: "list",
+      //   name: "roleDepartment",
+      //   message: "What department does this role belong to?",
+      //   choices: "",
+      // },
     ])
     .then((answers) => {
       console.log(answers);
-        const params = [answers.addRoles, answers.salary, answers.roleDepartment];
-        db.query(`INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)` [params], (err, result) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.table(result);
-            }
-        })
+      const params = [answers.addRoles, answers.salary, answers.roleDepartment];
+      db.query(
+        `INSERT INTO role (title, salary) VALUES (?, ?)`[params],
+        (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.table(result);
+          }
+        }
+      );
       promptQuestions();
     });
 };
@@ -180,21 +192,32 @@ const addEmployee = () => {
         name: "lastName",
         message: "What is the employees last name?",
       },
-      {
-        type: "list",
-        name: "role",
-        message: "What is the employees role?",
-        choices: ''
-      },
-      {
-        type: "list",
-        name: "manager",
-        message: "Who is the employees manager?",
-        choices: ''
-      },
+      // {
+      //   type: "list",
+      //   name: "role",
+      //   message: "What is the employees role?",
+      //   choices: "",
+      // },
+      // {
+      //   type: "list",
+      //   name: "manager",
+      //   message: "Who is the employees manager?",
+      //   choices: "",
+      // },
     ])
     .then((answers) => {
-    //   console.log(answers);
+      //   console.log(answers);
+      const params = [answers.firstName, answers.lastName];
+      db.query(
+        `INSERT INTO employee (fitst_name, last_name) VALUE (?, ?)`[params],
+        (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.table(result);
+          }
+        }
+      );
       promptQuestions();
     });
 };
@@ -204,18 +227,7 @@ const updateEmployee = () => {
   console.log("update employees");
 };
 
-// quit application 
+// quit application
 const quit = () => {
   console.log("quit");
 };
-
-
-// TODO: 
-// add .then function for addRole 
-    // i know i have to add a param
-    // i have to add a list in my prompted questions targeting departments 
-
-// add .then function for addEmployee  
-    // need to target the role id & manager id and format as a list item on my prompts 
-
-// add. update employee 
