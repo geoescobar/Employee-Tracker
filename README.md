@@ -22,7 +22,7 @@ Terminal based application giving access to view and manage departments, roles, 
 
   ## Description
 
-  #### Languages Used
+  #### Languages/Frameworks Used
 
     * node
     * javascript
