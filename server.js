@@ -27,7 +27,6 @@ const promptQuestions = () => {
   console.log(`
 -----------------------------
 |                           |
-|                           |
 |     EMPLOYEE TRACKER      |
 |     ________________      |
 |                           |
@@ -46,7 +45,11 @@ const promptQuestions = () => {
           "Add Departments",
           "Add Role",
           "Add Employee",
-          "Update Employee Role",
+          // "Update Department ",
+          // "Update Role",
+          "Update Employee",
+          "Delete Department",
+          "Delete Role",
           "Delete Employee",
           "Quit",
         ],
@@ -92,7 +95,7 @@ const promptQuestions = () => {
         `);
         addEmployee();
       }
-      if (userChoice.menu === "Update Employee Role") {
+      if (userChoice.menu === "Update Employee") {
         console.log(`
     ---------------------
     |                   |
@@ -101,6 +104,28 @@ const promptQuestions = () => {
     ---------------------
     `);
         updateEmployee();
+      }
+
+      if (userChoice.menu === "Delete Department") {
+        console.log(`
+    ---------------------------
+    |                         |
+    |    DELETE DEPARTMENT    |
+    |                         |
+    ---------------------------
+    `);
+        deleteDepartment();
+      }
+
+      if (userChoice.menu === "Delete Role") {
+        console.log(`
+    ---------------------
+    |                   |
+    |    DELETE ROLE    |
+    |                   |
+    ---------------------
+    `);
+        deleteRole();
       }
 
       if (userChoice.menu === "Delete Employee") {
@@ -119,7 +144,6 @@ const promptQuestions = () => {
         console.log(`
 -----------------------------
 |                           |
-|                           |
 |         GOOD BYE!         |
 |         _________         |
 |                           |
@@ -136,11 +160,11 @@ const viewDept = () => {
       console.log(err);
     } else {
       console.log(`
-        --------------------------
-        |                        |
-        |  VIEW ALL DEPARTMENTS  |
-        |                        |
-        --------------------------
+        -------------------------
+        |                       |
+        |    ALL DEPARTMENTS    |
+        |                       |
+        -------------------------
         `);
       console.table(result);
     }
@@ -155,11 +179,11 @@ const viewRoles = () => {
       console.log(err);
     } else {
       console.log(`
-    --------------------
-    |                  |
-    |  VIEW ALL ROLES  |
-    |                  |
-    --------------------
+    -------------------
+    |                 |
+    |    ALL ROLES    |
+    |                 |
+    -------------------
     `);
       console.table(result);
     }
@@ -174,11 +198,11 @@ const viewEmployees = () => {
       console.log(err);
     } else {
       console.log(`
-    ------------------------
-    |                      |
-    |  VIEW ALL EMPLOYEES  |
-    |                      |
-    ------------------------
+    -------------------------
+    |                       |
+    |     ALL EMPLOYEES     |
+    |                       |
+    -------------------------
     `);
       console.table(result);
     }
@@ -398,6 +422,7 @@ const updateEmployee = () => {
   });
 };
 
+// delete employee 
 const deleteEmployee = () => {
   db.query(`SELECT * FROM employee`, (err, result) => {
     if (err) {
@@ -425,6 +450,81 @@ const deleteEmployee = () => {
                 console.log(err);
               } else {
                 viewEmployees();
+              }
+            }
+          );
+          promptQuestions();
+        });
+    }
+  });
+};
+
+
+// delete role 
+const deleteRole = () => {
+  db.query(`SELECT * FROM role`, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      const employee = result.map((x) => ({
+        name: x.title,
+        value: x.id,
+      }));
+      inquirer
+        .prompt([
+          {
+            type: "list",
+            name: "employeeDelete",
+            message: "Which employee do you want to delete?",
+            choices: employee,
+          },
+        ])
+        .then((answers) => {
+          db.query(
+            `DELETE FROM role WHERE id = ?`,
+            answers.employeeDelete,
+            (err, result) => {
+              if (err) {
+                console.log(err);
+              } else {
+                viewRoles();
+              }
+            }
+          );
+          promptQuestions();
+        });
+    }
+  });
+};
+
+// delete department 
+const deleteDepartment = () => {
+  db.query(`SELECT * FROM department`, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      const department = result.map((x) => ({
+        name: x.department_name,
+        value: x.id,
+      }));
+      inquirer
+        .prompt([
+          {
+            type: "list",
+            name: "employeeDelete",
+            message: "Which department do you want to delete?",
+            choices: department,
+          },
+        ])
+        .then((answers) => {
+          db.query(
+            `DELETE FROM department WHERE id = ?`,
+            answers.employeeDelete,
+            (err, result) => {
+              if (err) {
+                console.log(err);
+              } else {
+                viewDept();
               }
             }
           );
