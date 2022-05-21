@@ -24,10 +24,10 @@ Terminal based application giving access to view and manage departments, roles, 
 
   #### Languages/Frameworks Used
 
-    * node
-    * javascript
-    * mySQL
-    * npm
+  - node
+  - javascript
+  - mySQL
+  - npm
 
   #### Why did you build this project?
 
@@ -49,7 +49,7 @@ Terminal based application giving access to view and manage departments, roles, 
 
   ## Links
 
-  #### [Github Repo](https://github.com/geoescobar/employee-tracker)
+  #### [Github Repo](https://github.com/geoescobar/Employee-Tracker-GE)
 
   ![Github Repo]()
 
@@ -59,13 +59,26 @@ Terminal based application giving access to view and manage departments, roles, 
 
   ## Installation
 
-  - npm i then node server.js
+1. Run mySQL - use whichever best applies to you
+   `mysql -u`
+   `mysql -u root -p`
+<br />
+2. Retrieve the data from mySQL
 
-  ***
+   `source schema.sql`
+   `source seeds.sql`
+<br />
+3. Run NPM install in the server.js integrated terminal
+   `npm i`
+<br />
+4. Run server.js
+   `node server.js`
 
-  ## Questions
+   ***
 
-  #### Have questions regarding this repository? Below is my contact info:
+## Questions
 
-  - https://github.com/geoescobar
-  - geo.escobar214@gmail.com
+#### Have questions regarding this repository? Below is my contact info:
+
+- https://github.com/geoescobar
+- geo.escobar214@gmail.com

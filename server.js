@@ -8,7 +8,7 @@ const cTable = require("console.table");
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  //* Replace password with your own as a string */
+  //* REPLACE PASSWORD WITH YOUR OWN AS A STRING */
   password: process.env.SQL_PW,
   database: "tracker_db",
 });
