@@ -55,33 +55,12 @@ const promptQuestions = () => {
     .then((userChoice) => {
       if (userChoice.menu === "View All Departments") {
         viewDept();
-        console.log(`
-        --------------------------
-        |                        |
-        |  VIEW ALL DEPARTMENTS  |
-        |                        |
-        --------------------------
-        `);
       }
       if (userChoice.menu === "View All Roles") {
         viewRoles();
-        console.log(`
-    --------------------
-    |                  |
-    |  VIEW ALL ROLES  |
-    |                  |
-    --------------------
-    `);
       }
       if (userChoice.menu === "View All Employees") {
         viewEmployees();
-        console.log(`
-    ------------------------
-    |                      |
-    |  VIEW ALL EMPLOYEES  |
-    |                      |
-    ------------------------
-    `);
       }
       if (userChoice.menu === "Add Departments") {
         console.log(`
@@ -156,11 +135,13 @@ const viewDept = () => {
     if (err) {
       console.log(err);
     } else {
-      // console.log(`
-      //   --------------------
-      //   VIEW ALL DEPARTMENTS
-      //   --------------------
-      //   `);
+      console.log(`
+        --------------------------
+        |                        |
+        |  VIEW ALL DEPARTMENTS  |
+        |                        |
+        --------------------------
+        `);
       console.table(result);
     }
   });
@@ -173,6 +154,13 @@ const viewRoles = () => {
     if (err) {
       console.log(err);
     } else {
+      console.log(`
+    --------------------
+    |                  |
+    |  VIEW ALL ROLES  |
+    |                  |
+    --------------------
+    `);
       console.table(result);
     }
   });
@@ -185,6 +173,13 @@ const viewEmployees = () => {
     if (err) {
       console.log(err);
     } else {
+      console.log(`
+    ------------------------
+    |                      |
+    |  VIEW ALL EMPLOYEES  |
+    |                      |
+    ------------------------
+    `);
       console.table(result);
     }
   });
@@ -336,7 +331,6 @@ const addEmployee = () => {
                   }
                 }
               );
-              promptQuestions();
             });
         }
       });
