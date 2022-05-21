@@ -233,7 +233,6 @@ const addDepartment = () => {
           }
         }
       );
-      promptQuestions();
     });
 };
 
@@ -285,7 +284,6 @@ const addRole = () => {
               }
             }
           );
-          promptQuestions();
         });
     }
   });
@@ -414,7 +412,6 @@ const updateEmployee = () => {
                   }
                 }
               );
-              promptQuestions();
             });
         }
       });
