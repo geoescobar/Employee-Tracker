@@ -141,14 +141,6 @@ const promptQuestions = () => {
 
       if (userChoice.menu === "Quit") {
         quit();
-        console.log(`
------------------------------
-|                           |
-|         GOOD BYE!         |
-|         _________         |
-|                           |
------------------------------
-  `);
       }
     });
 };
@@ -419,7 +411,7 @@ const updateEmployee = () => {
   });
 };
 
-// delete employee 
+// delete employee
 const deleteEmployee = () => {
   db.query(`SELECT * FROM employee`, (err, result) => {
     if (err) {
@@ -455,8 +447,7 @@ const deleteEmployee = () => {
   });
 };
 
-
-// delete role 
+// delete role
 const deleteRole = () => {
   db.query(`SELECT * FROM role`, (err, result) => {
     if (err) {
@@ -492,7 +483,7 @@ const deleteRole = () => {
   });
 };
 
-// delete department 
+// delete department
 const deleteDepartment = () => {
   db.query(`SELECT * FROM department`, (err, result) => {
     if (err) {
@@ -530,5 +521,12 @@ const deleteDepartment = () => {
 
 // quit application
 const quit = () => {
-  console.log("quit");
+  console.log(`
+-----------------------------
+|                           |
+|         GOOD BYE!         |
+|         _________         |
+|                           |
+-----------------------------
+  `);
 };
