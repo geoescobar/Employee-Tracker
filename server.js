@@ -453,7 +453,6 @@ const deleteEmployee = () => {
               }
             }
           );
-          promptQuestions();
         });
     }
   });
@@ -491,7 +490,6 @@ const deleteRole = () => {
               }
             }
           );
-          promptQuestions();
         });
     }
   });
@@ -528,7 +526,6 @@ const deleteDepartment = () => {
               }
             }
           );
-          promptQuestions();
         });
     }
   });
