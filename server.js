@@ -1,10 +1,10 @@
-// dependencies
+// ============================ dependencies ============================
 require("dotenv").config();
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
 const cTable = require("console.table");
 
-// creating connection to SQL
+// ============================ creating connection to SQL ============================
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -22,7 +22,8 @@ db.connect(function (err) {
   }
 });
 
-// prompting menu options
+// ============================ prompting menu options ============================
+
 const promptQuestions = () => {
   console.log(`
 -----------------------------
@@ -45,8 +46,6 @@ const promptQuestions = () => {
           "Add Departments",
           "Add Role",
           "Add Employee",
-          // "Update Department ",
-          // "Update Role",
           "Update Employee",
           "Delete Department",
           "Delete Role",
@@ -145,7 +144,7 @@ const promptQuestions = () => {
     });
 };
 
-// viewing departments
+// ============================ viewing departments ============================
 const viewDept = () => {
   db.query(`SELECT * FROM department`, (err, result) => {
     if (err) {
@@ -164,7 +163,7 @@ const viewDept = () => {
   promptQuestions();
 };
 
-// viewing roles
+// ============================ viewing roles ============================
 const viewRoles = () => {
   db.query(`SELECT * FROM role`, (err, result) => {
     if (err) {
@@ -183,7 +182,7 @@ const viewRoles = () => {
   promptQuestions();
 };
 
-// view employees
+// ============================ view employees ============================
 const viewEmployees = () => {
   db.query(`SELECT * FROM employee`, (err, result) => {
     if (err) {
@@ -202,7 +201,7 @@ const viewEmployees = () => {
   promptQuestions();
 };
 
-// add department
+// ============================ add department ============================
 const addDepartment = () => {
   inquirer
     .prompt([
@@ -228,7 +227,7 @@ const addDepartment = () => {
     });
 };
 
-// add role
+// ============================ add role ============================
 const addRole = () => {
   db.query(`SELECT * FROM department`, (err, result) => {
     if (err) {
@@ -259,7 +258,6 @@ const addRole = () => {
           },
         ])
         .then((answers) => {
-          // console.log(answers);
           const params = [
             answers.addRoles,
             answers.salary,
@@ -281,7 +279,7 @@ const addRole = () => {
   });
 };
 
-// add employee
+// ============================ add employee ============================
 const addEmployee = () => {
   db.query(`SELECT * FROM role`, (err, result) => {
     if (err) {
@@ -327,7 +325,6 @@ const addEmployee = () => {
               },
             ])
             .then((answers) => {
-              //   console.log(answers);
               const params = [
                 answers.firstName,
                 answers.lastName,
@@ -352,7 +349,7 @@ const addEmployee = () => {
   });
 };
 
-// update employee
+// ============================ update employee ============================
 const updateEmployee = () => {
   db.query(`SELECT * FROM employee`, (err, result) => {
     if (err) {
@@ -411,7 +408,7 @@ const updateEmployee = () => {
   });
 };
 
-// delete employee
+// ============================ delete employee ============================
 const deleteEmployee = () => {
   db.query(`SELECT * FROM employee`, (err, result) => {
     if (err) {
@@ -447,7 +444,7 @@ const deleteEmployee = () => {
   });
 };
 
-// delete role
+// ============================ delete role ============================
 const deleteRole = () => {
   db.query(`SELECT * FROM role`, (err, result) => {
     if (err) {
@@ -483,7 +480,7 @@ const deleteRole = () => {
   });
 };
 
-// delete department
+// ============================ delete department ============================
 const deleteDepartment = () => {
   db.query(`SELECT * FROM department`, (err, result) => {
     if (err) {
@@ -519,7 +516,7 @@ const deleteDepartment = () => {
   });
 };
 
-// quit application
+// ============================ quit application ============================
 const quit = () => {
   console.log(`
 -----------------------------
