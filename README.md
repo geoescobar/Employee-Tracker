@@ -55,7 +55,7 @@ Terminal based application giving access to view, manage, and delete departments
 
   ![Github Repo](./Assets/screenshot.png)
 
-  #### [Screencastify](./Assets/screencastify.mp4)
+  #### [Screencastify](https://drive.google.com/file/d/1IEtkz1cXctGDWuphMz7Qh3BOhfPw_VXx/view)
 
   ![Screencastify](./Assets/app-gif.gif)
 
