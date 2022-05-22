@@ -9,7 +9,7 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   //* REPLACE PASSWORD WITH YOUR OWN AS A STRING */
-  password: process.env.SQL_PW,
+  password: process.env.SQL_PW, 
   database: "tracker_db",
 });
 
@@ -527,3 +527,5 @@ const quit = () => {
 -----------------------------
   `);
 };
+
+

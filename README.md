@@ -1,12 +1,14 @@
 # Employee Tracker
 
-Terminal based application giving access to view and manage departments, roles, and employees.
+Terminal based application giving access to view, manage, and delete departments, roles, and employees.
 
 ---
 
 ## License
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![License: NPM Inquirer](https://img.shields.io/npm/v/inquirer)
+
 
 ---
 
@@ -51,26 +53,27 @@ Terminal based application giving access to view and manage departments, roles, 
 
   #### [Github Repo](https://github.com/geoescobar/Employee-Tracker-GE)
 
-  ![Github Repo]()
+  ![Github Repo](./Assets/screenshot.png)
 
-  #### [Screencastify](https://github.com/geoescobar/employee-tracker)
+  #### [Screencastify](./Assets/screencastify.mp4)
 
-  ![Screencastify]()
+  ![Screencastify](./Assets/app-gif.gif)
 
   ## Installation
 
 1. Run mySQL - use whichever best applies to you
    `mysql -u`
    `mysql -u root -p`
-<br />
+   <br />
 2. Retrieve the data from mySQL
 
    `source schema.sql`
    `source seeds.sql`
-<br />
+   <br />
+
 3. Run NPM install in the server.js integrated terminal
    `npm i`
-<br />
+   <br />
 4. Run server.js
    `node server.js`
 
